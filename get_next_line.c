@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/11/30 07:06:28 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:16:28 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*extract_str(char *buff, size_t size, int add_terminator)
 	dest = malloc(sizeof(char) * (size + add_terminator));
 	if (!dest)
 		return (NULL);
-	while (i < size - 1)
+	while (i < size)
 	{
 		dest[i] = buff[i];
 		i++;
@@ -131,6 +131,78 @@ size_t	check_line(char *full_buff, size_t start_pos, size_t buff_size)
 }
 
 char	*get_next_line(int fd)
+{
+	static t_vector	*fd_vector;
+	char			*buff_ptr;
+	size_t			end_line_pos;
+	char			*buff_out;
+
+	end_line_pos = 0;
+	if (fd_vector == NULL)
+	{
+		printf("CREATE NEW FD_VECTOR\n");
+		fd_vector = malloc(sizeof(t_vector));
+		fd_vector->capacity = 0;
+		fd_vector->size = 0;
+		fd_vector->buff = NULL;
+	}
+	else if ((fd_vector->size > 0 && fd_vector->size < BUFFER_SIZE))
+		end_line_pos = check_line(fd_vector->buff, fd_vector->size
+				- BUFFER_SIZE, BUFFER_SIZE);
+	while (end_line_pos == 0)
+	{
+		vector_resize_if_needed(fd_vector, BUFFER_SIZE + 5);
+		if (fd_vector->buff == NULL)
+		{
+			printf("###(NULL)###\n");
+			return (NULL);
+		}
+		printf("capacity : %ld, size : %ld\n", fd_vector->capacity,
+				fd_vector->size);
+		//		printf("buff :%s\n", (char *)fd_vector->buff);
+		buff_ptr = (char *)fd_vector->buff + fd_vector->size;
+		if (read(fd, buff_ptr, BUFFER_SIZE) == 0)
+		{
+			printf("\nEND OF FILE\n");
+			if (fd_vector->size == 0)
+				return (NULL);
+			return (extract_str(fd_vector->buff, end_line_pos, 1));
+			//return (NULL);
+		}
+		fd_vector->size += BUFFER_SIZE;
+		end_line_pos = check_line(fd_vector->buff, fd_vector->size
+				- BUFFER_SIZE, BUFFER_SIZE);
+	}
+	if (end_line_pos != 0)
+	{
+		buff_out = extract_str(fd_vector->buff, end_line_pos, 1);
+		if ((fd_vector->capacity > BUFFER_SIZE * 2) || (fd_vector->capacity
+				- end_line_pos < (fd_vector->capacity / 2)))
+		//TODO verify that Oliv
+		{
+			// realocate
+			buff_ptr = extract_str(fd_vector->buff + end_line_pos,
+									(fd_vector->size - end_line_pos),
+									0);
+			free(fd_vector->buff);
+			fd_vector->buff = buff_ptr;
+			fd_vector->size = fd_vector->size - end_line_pos;
+		}
+		else
+		{
+			//move memory data
+			//memcpy()
+			ft_memcpy(fd_vector->buff, fd_vector->buff + end_line_pos,
+					fd_vector->size - end_line_pos);
+			((char *)fd_vector->buff)[fd_vector->size - end_line_pos] = 0;
+			fd_vector->size = fd_vector->size - end_line_pos;
+		}
+		printf("\nRETURN BUFF\n");
+		return (buff_out);
+	}
+}
+/*/
+char	*get_next_line_bk(int fd)
 {
 	static t_vector	*fd_vector;
 	char			*buff_ptr;
@@ -181,8 +253,7 @@ char	*get_next_line(int fd)
 		}
 		return (buff_out);
 	}
-	if (!(fd_vector->size < BUFFER_SIZE && fd_vector->size > 0)
-		|| (end_line_pos == 0))
+	if (end_line_pos == 0)
 	{
 		vector_resize_if_needed(fd_vector, BUFFER_SIZE + 5);
 		// buff_ptr = fd_vector->size
@@ -204,7 +275,7 @@ char	*get_next_line(int fd)
 	}
 	return (get_next_line(fd));
 }
-
+*/
 int	main(void)
 {
 	int		fd;
@@ -216,7 +287,7 @@ int	main(void)
 	fd = open("test.txt", O_RDONLY);
 	printf("\n----------------------------------------\n");
 	i = 0;
-	while (i < 5)
+	while (i < 10)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
