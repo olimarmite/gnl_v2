@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/11/30 05:36:29 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/11/30 07:06:28 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*extract_str(char *buff, size_t size, int add_terminator)
 	dest = malloc(sizeof(char) * (size + add_terminator));
 	if (!dest)
 		return (NULL);
-	while (i < size)
+	while (i < size - 1)
 	{
 		dest[i] = buff[i];
 		i++;
@@ -116,14 +116,14 @@ size_t	check_line(char *full_buff, size_t start_pos, size_t buff_size)
 	i = 0;
 	while (i < buff_size)
 	{
-		printf("\n/%c/\n", full_buff[start_pos + i]);
+		//printf("\n/%c/\n", full_buff[start_pos + i]);
 		if (full_buff[start_pos + i] == '#')
 		{
 			printf("\nLINE FOUND\n");
 			//		result = extract_str(full_buff + start_pos, i);
 			//			printf("\n[%s]\n", result);
 			//return ();
-			return (start_pos + i);
+			return (start_pos + i + 1);
 		}
 		i++;
 	}
@@ -145,26 +145,16 @@ char	*get_next_line(int fd)
 		fd_vector->size = 0;
 		fd_vector->buff = NULL;
 	}
-	if (!(fd_vector->size < BUFFER_SIZE && fd_vector->size > 0))
+	//else
+	end_line_pos = 0;
+	if (fd_vector->buff != NULL)
 	{
-		vector_resize_if_needed(fd_vector, BUFFER_SIZE + 5);
-		// buff_ptr = fd_vector->size
-		if (fd_vector->buff == NULL)
-		{
-			printf("###(NULL)###\n");
-			return (NULL);
-		}
-		printf("capacity : %ld, size : %ld\n", fd_vector->capacity,
-				fd_vector->size);
-		printf("buff :%s\n", (char *)fd_vector->buff);
-		buff_ptr = (char *)fd_vector->buff + fd_vector->size;
-		read(fd, buff_ptr, BUFFER_SIZE);
-		end_line_pos = check_line(fd_vector->buff, fd_vector->size,
-				BUFFER_SIZE);
-		fd_vector->size += BUFFER_SIZE;
+		if (fd_vector->size < BUFFER_SIZE && fd_vector->size > 0)
+			end_line_pos = check_line(fd_vector->buff, 0, fd_vector->size - 1);
+		else
+			end_line_pos = check_line(fd_vector->buff, fd_vector->size
+					- BUFFER_SIZE, BUFFER_SIZE);
 	}
-	else
-		end_line_pos = check_line(fd_vector->buff, 1, BUFFER_SIZE);
 	if (end_line_pos != 0)
 	{
 		buff_out = extract_str(fd_vector->buff, end_line_pos, 1);
@@ -191,7 +181,28 @@ char	*get_next_line(int fd)
 		}
 		return (buff_out);
 	}
-	return (NULL);
+	if (!(fd_vector->size < BUFFER_SIZE && fd_vector->size > 0)
+		|| (end_line_pos == 0))
+	{
+		vector_resize_if_needed(fd_vector, BUFFER_SIZE + 5);
+		// buff_ptr = fd_vector->size
+		if (fd_vector->buff == NULL)
+		{
+			printf("###(NULL)###\n");
+			return (NULL);
+		}
+		printf("capacity : %ld, size : %ld\n", fd_vector->capacity,
+				fd_vector->size);
+		//		printf("buff :%s\n", (char *)fd_vector->buff);
+		buff_ptr = (char *)fd_vector->buff + fd_vector->size;
+		read(fd, buff_ptr, BUFFER_SIZE);
+		if (read == NULL)
+		{
+			return (NULL);
+		}
+		fd_vector->size += BUFFER_SIZE;
+	}
+	return (get_next_line(fd));
 }
 
 int	main(void)
