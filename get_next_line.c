@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 20:29:07 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:51:56 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_vector	**get_fd_vector(int fd)
 	t_vector		*fd_vector;
 	static t_vector	*fd_vector_lst[1024];
 
+	if (fd < 0 || fd > 1023)
+		return (NULL);
 	fd_vector = fd_vector_lst[fd];
 	if (fd_vector == NULL)
 	{
@@ -56,7 +58,7 @@ int	read_until_new_line(int fd, t_vector **fd_vector, size_t *end_line_pos,
 {
 	int	readed_count;
 
-	if ((*fd_vector) == NULL)
+	if ((fd_vector == NULL) || (*fd_vector) == NULL)
 		return (2);
 	if (((*fd_vector)->size > 0 && (*fd_vector)->size < BUFFER_SIZE))
 		*end_line_pos = check_line((*fd_vector)->buff, 0, BUFFER_SIZE);
