@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:37 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 18:41:27 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:19:32 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	vector_resize(t_vector *vector, size_t new_size, size_t elem_size)
 		vector->size = 0;
 		return ;
 	}
-	while (i < vector->size)
-		new_buff[i] = ((char *)vector->buff)[i++];
+	while (i++ < vector->size)
+		new_buff[i - 1] = ((char *)vector->buff)[i - 1];
 	if (new_size > 0)
 	{
 		new_buff[new_size - 1] = 0;
@@ -71,13 +71,32 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	s = src;
 	d = dest;
 	i = 0;
-	if ((dest == NULL || src == NULL))
+	if ((dest == NULL && src == NULL))
 		return (NULL);
 	while (i < n)
 	{
 		d[i] = s[i];
 		i++;
 	}
+	return (dest);
+}
+
+char	*extract_str(char *buff, size_t size, int add_terminator)
+{
+	size_t	i;
+	char	*dest;
+
+	i = 0;
+	dest = malloc(sizeof(char) * (size + add_terminator));
+	if (!dest)
+		return (NULL);
+	while (i < size)
+	{
+		dest[i] = buff[i];
+		i++;
+	}
+	if (add_terminator)
+		dest[i] = 0;
 	return (dest);
 }
 
