@@ -6,12 +6,12 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:37 by olimarti          #+#    #+#             */
-/*   Updated: 2022/11/30 04:13:54 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:12:16 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "get_next_line.h"
-
 void	vector_resize(t_vector *vector, size_t new_size, size_t elem_size)
 {
 	size_t	i;
@@ -86,7 +86,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-
+*/
 //VECTOR TESTS
 
 // int	main(void)
