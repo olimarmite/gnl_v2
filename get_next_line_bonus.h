@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:06:48 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 15:45:02 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:26:17 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -35,6 +35,7 @@ void		vector_resize(t_vector *vector, size_t new_size, size_t elem_size);
 void		vector_insert_buff(t_vector *vector, char *buff, size_t buff_size);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		free_vector(t_vector **vector);
+char		*extract_str(char *buff, size_t size, int add_terminator);
 
 char		*get_next_line(int fd);
 

@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:06:48 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 15:45:02 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:53:38 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		vector_resize(t_vector *vector, size_t new_size, size_t elem_size);
 void		vector_insert_buff(t_vector *vector, char *buff, size_t buff_size);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		free_vector(t_vector **vector);
+char		*extract_str(char *buff, size_t size, int add_terminator);
 
 char		*get_next_line(int fd);
 
