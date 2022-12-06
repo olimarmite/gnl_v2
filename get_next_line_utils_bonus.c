@@ -6,11 +6,11 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:37 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 20:19:09 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/06 21:31:19 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	vector_resize(t_vector *vector, size_t new_size, size_t elem_size)
 {
@@ -99,58 +99,3 @@ char	*extract_str(char *buff, size_t size, int add_terminator)
 		dest[i] = 0;
 	return (dest);
 }
-
-// void	vector_insert_buff(t_vector *vector, char *buff, size_t buff_size)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	vector_resize_if_needed(vector, buff_size);
-// 	while (i < buff_size)
-// 	{
-// 		((char *)vector->buff)[vector->size + i] = buff[i];
-// 		i++;
-// 	}
-// 	vector->size += buff_size;
-// }
-
-//VECTOR TESTS
-
-// int	main(void)
-// {
-// 	t_vector	*vector;
-
-// 	vector = malloc(sizeof(t_vector));
-// 	vector->capacity = 0;
-// 	vector->size = 0;
-// 	// vector_resize_if_needed(vector, BUFFER_SIZE + 5);
-// 	// vector->size += BUFFER_SIZE;
-// 	// ((char *)vector->buff)[0] = 'q';
-// 	vector_insert_buff(vector, "0123456789", BUFFER_SIZE);
-// 	if (vector->buff == NULL)
-// 		printf("(NULL)\n");
-// 	else
-// 		printf("[%s]\n", (char *)vector->buff);
-// 	printf("capacity : %ld, size : %ld\n", vector->capacity, vector->size);
-// 	printf("\n-2-\n");
-// 	vector_insert_buff(vector, "abcdefghij", BUFFER_SIZE);
-// 	if (vector->buff == NULL)
-// 		printf("(NULL)\n");
-// 	else
-// 		printf("[%s]\n", (char *)vector->buff);
-// 	printf("capacity : %ld, size : %ld\n", vector->capacity, vector->size);
-// 	printf("\n-3-\n");
-// 	vector_insert_buff(vector, "jklmnpqrst", BUFFER_SIZE);
-// 	if (vector->buff == NULL)
-// 		printf("(NULL)\n");
-// 	else
-// 		printf("[%s]\n", (char *)vector->buff);
-// 	printf("capacity : %ld, size : %ld\n", vector->capacity, vector->size);
-// 	printf("\n-4-\n");
-// 	vector_insert_buff(vector, "uvwxyzqwertyuiopasdf", 20);
-// 	if (vector->buff == NULL)
-// 		printf("(NULL)\n");
-// 	else
-// 		printf("[%s]\n", (char *)vector->buff);
-// 	printf("capacity : %ld, size : %ld\n", vector->capacity, vector->size);
-// }

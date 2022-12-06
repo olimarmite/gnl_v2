@@ -6,11 +6,11 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/03 20:52:35 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/06 21:26:27 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	check_line(char *full_buff, size_t start_pos, size_t buff_size)
 {
@@ -128,8 +128,8 @@ char	*get_next_line(int fd)
 	if (read_status == 2)
 		return (NULL);
 	buff_out = extract_str((*fd_vector)->buff, end_line_pos, 1);
-	if ((((*fd_vector)->capacity > BUFFER_SIZE * 2) || ((*fd_vector)->capacity
-				- end_line_pos < ((*fd_vector)->capacity / 2))))
+	if (((*fd_vector)->capacity > BUFFER_SIZE * 2)
+		&& ((*fd_vector)->capacity > 20))
 	{
 		if (realocate(fd_vector, end_line_pos) == 1)
 			return (NULL);
