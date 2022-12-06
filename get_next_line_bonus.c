@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/06 21:26:27 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:10:25 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ t_vector	**get_fd_vector(int fd)
 	}
 	return (&fd_vector_lst[fd]);
 }
+
 //return 0 when a newline were already in the buffer
 //return 1 when the end of the file is reached and the buffer wasn't empty
 //return 2 when the end of the file is reached
 //			and the buffer was empty or on error
-
 int	read_until_new_line(int fd, t_vector **fd_vector, size_t *end_line_pos,
 		char **buff_out)
 {
