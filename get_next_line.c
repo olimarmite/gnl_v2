@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:41 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/07 00:09:01 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:09:40 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ size_t	check_line(char *full_buff, size_t start_pos, size_t buff_size)
 t_vector	**get_fd_vector(int fd)
 {
 	t_vector		*fd_vector;
-	static t_vector	*fd_vector_lst[1024];
+	static t_vector	*fd_vector_lst[FOPEN_MAX];
 
-	if (fd < 0 || fd > 1023)
+	if (fd < 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	fd_vector = fd_vector_lst[fd];
 	if (fd_vector == NULL)

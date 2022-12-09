@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:09:37 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/06 21:31:03 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:39:11 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	vector_resize(t_vector *vector, size_t new_size, size_t elem_size)
 	char	*new_buff;
 
 	i = 0;
-	new_buff = calloc(new_size, elem_size);
+	new_buff = malloc(new_size * elem_size);
 	if (new_buff == NULL)
 	{
 		free(vector->buff);

@@ -6,12 +6,21 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:06:48 by olimarti          #+#    #+#             */
-/*   Updated: 2022/12/06 23:52:44 by olimarti         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:20:48 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
+
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef FOPEN_MAX
+#  define FOPEN_MAX 1024
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -21,12 +30,6 @@
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
 # endif
-
-# include <fcntl.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 typedef struct s_vector
 {
